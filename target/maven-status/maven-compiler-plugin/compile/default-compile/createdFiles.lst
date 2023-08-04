@@ -1,0 +1,7 @@
+com/hackerrank/stereotypes/model/Person.class
+com/hackerrank/stereotypes/Application.class
+com/hackerrank/stereotypes/Application$Message.class
+com/hackerrank/stereotypes/repository/ContactRepository.class
+com/hackerrank/stereotypes/service/ContactService.class
+com/hackerrank/stereotypes/controller/ContactController.class
+com/hackerrank/stereotypes/Application$DatabaseConnection.class

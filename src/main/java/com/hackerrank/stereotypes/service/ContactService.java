@@ -2,10 +2,12 @@ package com.hackerrank.stereotypes.service;
 
 import com.hackerrank.stereotypes.model.*;
 import com.hackerrank.stereotypes.repository.*;
+import javassist.bytecode.DuplicateMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -31,12 +33,32 @@ public class ContactService {
 
 
     public User save(User person){
-        return userRepository.save(person);
+
+        try {
+            Optional<User> user = userRepository.findByEmail(person.getEmail());
+
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            } else if (user.isPresent()) {
+                throw new DuplicateMemberException("This staff member is already present");
+            }
+
+            return userRepository.save(person);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
+
 
     public List<Answer> saveAllAnswers(List<Answer> answers){
 
         try {
+            if(answers.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
 
             Integer uid = answers.get(0).getUser_id();
             Optional<User> user = userRepository.findById(uid);
@@ -71,27 +93,34 @@ public class ContactService {
     public Question save(Question person){
 
         try {
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
 
             Integer id = person.getForm_id();
             Optional<Form> form = formRepository.findById(id);
 
-            if (!form.isPresent()) {
+            if(!form.isPresent()) {
                 throw new NullPointerException("There is no form exists with this id!");
             }
 
             return questionRepository.save(person);
-
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
         return null;
+
     }
 
     public Form save(Form person) {
 
         try {
+
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
 
             Integer id = person.getOwner_id();
             Optional<User> user = userRepository.findById(id);
@@ -112,26 +141,105 @@ public class ContactService {
     }
 
     public Response save(Response person){
-        return responseRepository.save(person);
+        try {
+            Response user = responseRepository.save(person);
+
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public List<User> getAll(){
-        return userRepository.findAll();
+        try {
+            List<User> user = userRepository.findAll();
+
+            if(user.equals(null)) {
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public List<Answer> getAllAns(){
-        return answerRepository.findAll();
+
+        try {
+            List<Answer> user = answerRepository.findAll();
+
+            if(user.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public List<Response> getAllResponses(){
-        return responseRepository.findAll();
+
+        try {
+            List<Response> user = responseRepository.findAll();
+
+            if(user.equals(null)) {
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public Response getResponse(@PathVariable("id") Integer id){
-        return responseRepository.findById(id).get();
+
+        try {
+            Response user = responseRepository.findById(id).get();
+            if(user.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public List<Object[]> getCountResponse(){
-        return responseRepository.countResponseByForm();
+
+        try {
+            List<Object[]> user = responseRepository.countResponseByForm();
+
+            if(user.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            return user;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

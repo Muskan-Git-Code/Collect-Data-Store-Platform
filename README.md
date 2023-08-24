@@ -29,4 +29,13 @@ We need to complete the given project so that it passes all the test cases when 
 2. Optimizing the solution: Created multiple tables instead of storing in one for normalization (reducing redundancy and multiple DB search). Also, horizontal scalability, single point of failure, latency, availability, consistency etc. also kept in mind while designing. 
 3. Corner Cases: On form creation make that user owner of that form, multiple values should not be stored in database, automatically store the response in response table and others. 
 
+
+## Corner Cases:
+1. Check if the details are valid while saving/ storing user, question, response, etc. in the data storage.
+2. User table shouldn't contain duplicate record.
+3. User should be a registered user for from creation and for submitting the response.
+4. And after creating form user is set to be as owner.
+5. Add questions and its responses in a valid form.
+6. 
+
 Here is the detailed document, explaining the solution: https://docs.google.com/document/d/1yGpGGiwikH9ooi2DohW9-nYtoG-2juItQNI427NV6Uw/edit?usp=sharing 

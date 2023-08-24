@@ -36,6 +36,6 @@ We need to complete the given project so that it passes all the test cases when 
 3. User should be a registered user for from creation and for submitting the response.
 4. And after creating form user is set to be as owner.
 5. Add questions and its responses in a valid form.
-6. 
+
 
 Here is the detailed document, explaining the solution: https://docs.google.com/document/d/1yGpGGiwikH9ooi2DohW9-nYtoG-2juItQNI427NV6Uw/edit?usp=sharing 

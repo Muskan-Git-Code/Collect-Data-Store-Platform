@@ -40,7 +40,7 @@ public class ContactService {
             if(person.equals(null)){
                 throw new NullPointerException("Please enter valid details!");
             } else if (user.isPresent()) {
-                throw new DuplicateMemberException("This staff member is already present");
+                throw new DuplicateMemberException("User already present!");
             }
 
             return userRepository.save(person);
@@ -50,6 +50,58 @@ public class ContactService {
         }
 
         return null;
+    }
+
+
+    public Form save(Form person) {
+
+        try {
+
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            Integer id = person.getOwner_id();
+            Optional<User> user = userRepository.findById(id);
+
+            if (!user.isPresent()) {
+                throw new NullPointerException("UserId doesn't exist. Please register the user!");
+            } else {
+                user.get().setIs_owner(true);
+            }
+
+            return formRepository.save(person);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public Question save(Question person){
+
+        try {
+            if(person.equals(null)){
+                throw new NullPointerException("Please enter valid details!");
+            }
+
+            Integer id = person.getForm_id();
+            Optional<Form> form = formRepository.findById(id);
+
+            if(!form.isPresent()) {
+                throw new NullPointerException("There is no form exists with this id!");
+            }
+
+            return questionRepository.save(person);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 
 
@@ -90,55 +142,6 @@ public class ContactService {
         return null;
     }
 
-    public Question save(Question person){
-
-        try {
-            if(person.equals(null)){
-                throw new NullPointerException("Please enter valid details!");
-            }
-
-            Integer id = person.getForm_id();
-            Optional<Form> form = formRepository.findById(id);
-
-            if(!form.isPresent()) {
-                throw new NullPointerException("There is no form exists with this id!");
-            }
-
-            return questionRepository.save(person);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-    public Form save(Form person) {
-
-        try {
-
-            if(person.equals(null)){
-                throw new NullPointerException("Please enter valid details!");
-            }
-
-            Integer id = person.getOwner_id();
-            Optional<User> user = userRepository.findById(id);
-
-            if (!user.isPresent()) {
-                throw new NullPointerException("UserId doesn't exist. Please register the user!");
-            } else {
-                user.get().setIs_owner(true);
-            }
-
-            return formRepository.save(person);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     public Response save(Response person){
         try {
@@ -156,6 +159,8 @@ public class ContactService {
         return null;
     }
 
+
+    // Get al users
     public List<User> getAll(){
         try {
             List<User> user = userRepository.findAll();
@@ -173,6 +178,8 @@ public class ContactService {
         return null;
     }
 
+
+    //Get all answers
     public List<Answer> getAllAns(){
 
         try {
@@ -190,6 +197,8 @@ public class ContactService {
         return null;
     }
 
+
+    // Get all responses
     public List<Response> getAllResponses(){
 
         try {
@@ -208,6 +217,8 @@ public class ContactService {
         return null;
     }
 
+
+    // Get response for a specific id
     public Response getResponse(@PathVariable("id") Integer id){
 
         try {
@@ -225,6 +236,8 @@ public class ContactService {
         return null;
     }
 
+
+    // Count number of responses in a form
     public List<Object[]> getCountResponse(){
 
         try {
